@@ -1,6 +1,7 @@
 var PLAY = 1;
 var END = 0;
 var gameState = PLAY;
+//var gameState = PLAY;
 
 var ghost, ghostImage;
 var tower, towerImage;
