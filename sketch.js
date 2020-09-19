@@ -16,7 +16,6 @@ var detector;
 var score = 0;
 
 function preload() {
-
     ghostImage = loadImage("ghost-standing.png");
     towerImage = loadImage("tower.png");
 
@@ -24,7 +23,6 @@ function preload() {
     climberImage = loadImage("climber.png");
 
     spookyWav = loadSound("spooky.wav");
-
 
 }
 
@@ -45,7 +43,6 @@ function draw() {
 
     console.log("this is  " + gameState);
 
-
     if (gameState === PLAY) {
         tower.visible = true;
         detectorGroup.visible = true;
@@ -53,11 +50,7 @@ function draw() {
         doorGroup.visible = true;
         ghost.visible = true;
 
-
         spawnObstacles();
-
-
-
 
         tower.velocityY = 2;
 
@@ -92,9 +85,6 @@ function draw() {
             gameState = END;
         }
 
-
-
-
     } else if (gameState === END) {
         background(0);
 
@@ -109,7 +99,6 @@ function draw() {
         ghost.x = 300;
         ghost.y = 300;
         ghost.velocityY = 0;
-
 
         fill("cyan");
         strokeWeight(10);
@@ -130,11 +119,8 @@ function draw() {
         reset();
     }
 
-
-
     drawSprites();
 }
-
 
 function spawnObstacles() {
     if (frameCount % 150 === 0) {
