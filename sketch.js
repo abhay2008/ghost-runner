@@ -34,14 +34,10 @@ function setup() {
     tower = createSprite(300, 200);
     tower.addImage(towerImage);
 
-
-    ghost = createSprite(300, 280, 5, 5);
-    ghost.addImage(ghostImage);
-    ghost.scale = 0.3;
-
-    climberGroup = createGroup();
     doorGroup = createGroup();
+    climberGroup = createGroup();
     detectorGroup = createGroup();
+    Ghost();
 }
 
 function draw() {
@@ -51,15 +47,17 @@ function draw() {
 
 
     if (gameState === PLAY) {
-        ghost.visible = true;
         tower.visible = true;
         detectorGroup.visible = true;
         climberGroup.visible = true;
         doorGroup.visible = true;
+        ghost.visible = true;
 
-        spawnClimber();
-        spawnDoor();
-        spawnDetector();
+
+        spawnObstacles();
+
+
+
 
         tower.velocityY = 2;
 
@@ -89,7 +87,6 @@ function draw() {
             ghost.velocityY = ghost.velocityY + 0.8;
 
         }
-
 
         if (ghost.y > 600 || detectorGroup.isTouching(ghost)) {
             gameState = END;
@@ -139,28 +136,15 @@ function draw() {
 }
 
 
-function spawnClimber() {
+function spawnObstacles() {
     if (frameCount % 150 === 0) {
-        climber = createSprite(random(100, 500), 0, 10, 10);
-        climber.addImage(climberImage);
-
-        climber.velocityY = 3;
-        climber.lifetime = 300;
-
-        door = createSprite(climber.x, climber.y - 50, 10, 10);
+        door = createSprite(random(100, 500), -50, 10, 10);
         door.addImage(doorImage);
 
         door.velocityY = 3;
         door.lifetime = 300;
 
-        climber.depth = door.depth;
-        door.depth = door.depth + 1;
-
-
-        ghost.depth = door.depth;
-        door.depth = door.depth + 1;
-
-        detector = createSprite(climber.x, climber.y + 10, 50, 10);
+        detector = createSprite(door.x, door.y + 60, 50, 10);
 
         detector.velocityY = 3;
         detector.lifetime = 300;
@@ -169,15 +153,26 @@ function spawnClimber() {
         detector.setCollider("rectangle", 0, 0, 100, 3);
         detector.debug = true;
 
+        climber = createSprite(door.x, door.y + 50, 10, 10);
+        climber.addImage(climberImage);
+
+        climber.velocityY = 3;
+        climber.lifetime = 300;
 
         climberGroup.add(climber);
         doorGroup.add(door);
         detectorGroup.add(detector);
+
     }
 
 }
 
+function Ghost() {
+    ghost = createSprite(300, 280, 5, 5);
+    ghost.addImage(ghostImage);
+    ghost.scale = 0.3;
 
+}
 
 function reset() {
     gameState = PLAY;
